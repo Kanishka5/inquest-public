@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Leaderboard{% endblock %}
+
+{% block content %}
+<section>
+	
+              
+	{% if user.is_authenticated %}
+	
+		<a href="{% url 'profile' %}">{{ user.username }} Score : {{user.score}}</a>
+	
+	{% else %}
+			You are not logged in  !
+		<a href="{% url 'login' %}" style="color:#17a2b8;">  login</a> | <a href="{% url 'signup' %}" style="color:#17a2b8;">signup</a>
+	{% endif %}
+            
+
+		<h1>Leaderboard</h1><br><br>
+		Position-------------Name---------------College------------------Score
+		<br><br>
+		{% for participant in participants %}
+			{{forloop.counter}}--------{{ participant.username}}-------{{participant.college}}--------{{participant.score}}
+		<br><br>-------*------*-------*------*----*-----*------*------*----*-----*-----*------*----*-----*-----*------*----*-----*-----*------*----*-----*-----<br><br>
+		{% endfor %}
+	</div>
+	
+</section>
+{% endblock %}

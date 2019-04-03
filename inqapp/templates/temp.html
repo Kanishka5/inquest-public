@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <section class="question">
+        {% if user.is_authenticated %}
+            Question page <br><br>
+            {{ user.username }} Score : {{user.score}}
+            <br><br> Players ahead you : {{n}}<br><br><br>
+            Question : {{question}}<br>
+            Image : {{question.image}}<br>
+            <img src="{{question.image.url}}" style="width:10vw;height:10vh;"><br>
+            Message : {{question.message}}<br>
+            <form method="POST" class="post-form">{% csrf_token %}
+                <!-- <p><label for="id_answer">Answer:</label> <input type="text" name="answer" maxlength="50" required="" id="id_answer"></p> -->
+                
+                <input class="input__field input__field--kyo" for="id_answer" name="answer" type="text" id="input-19 id_answer" />
+                <label class="input__label input__label--kyo" for="id_answer">
+                    <span class="input__label-content input__label-content--kyo">Answer</span>
+                </label>
+
+                <button type="submit" class="save btn btn-success boton" ><h3 style="margin:0">Submit</h3></button>
+            </form>
+            
+        {% endif %}
+    </section>
+
+
+{% endblock %}
+

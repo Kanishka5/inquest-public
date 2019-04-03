@@ -1,0 +1,9 @@
+<a href="{% url 'home' %}">Home</a>
+{% if user.is_authenticated %}
+  Hi {{ user.username }}! 
+  your score is :{{user.score}}
+  <p><a href="{% url 'logout' %}">logout</a></p>
+{% else %}
+  <p>You are logged out</p>
+  <a href="{% url 'signin' %}">login</a> | <a href="{% url 'signup' %}">signup</a>
+{% endif %}

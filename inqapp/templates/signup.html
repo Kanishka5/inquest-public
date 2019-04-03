@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inquest | Signup</title>
+  <link href="https://fonts.googleapis.com/css?family=Work+Sans:400,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  {% load static %}
+    
+  <link rel="stylesheet" href="{% static "css/signup.css" %}">
+  <link rel="stylesheet" href="{% static "css/main.css" %}">
+  <link rel="stylesheet" href="{% static "css/navbar.css" %}">
+ <style>
+body {
+background-color: #48b8d0;
+}
+</style>
+</head>
+
+<body>
+
+  <div class="menuIcon">
+    <span class="icon icon-bars"></span>
+    <span class="icon icon-bars overlay"></span>
+  </div>
+  <!-- mobile menu -->
+  <div class="overlay-menu">
+    <ul id="menu">
+      <li><a href="../">
+          <p id="h1"><b>HOME</b></p>
+        </a></li>
+      <li><a href="{% url 'leaderboard' %}">
+          <p id="h1"><b>LEADER BOARD</b></p>
+        </a></li>
+      <li><a href="{% url 'contact' %}">
+          <p id="h1"><b>CONTACT US</b></p>
+        </a></li>
+      {% if user.is_authenticated %}
+      <li><a href="{% url 'logout' %}">
+          <p id="h1"><b>LOGOUT</b></p>
+        </a></li>
+      {% else %}
+      <li><a href="{% url 'signin' %}">
+          <p id="h1"><b>SIGN IN</b></p>
+        </a></li>
+      <li><a href="{% url 'signup' %}">
+        <p id="h1"><b>SIGN UP</b></p>
+      </a></li>
+      {% endif %}
+      <!-- <p>
+            <a href="https://www.facebook.com/arhn.nitd/">
+            <i class="fa fa-facebook-square" style="font-size:20px"></i>
+            </a>
+          </p>
+          <p>
+            <a href="https://www.youtube.com/user/arhnNITD">
+            <i class="fa fa-youtube" style="font-size:20px"></i>
+            </a>
+          </p>
+          <p>
+            <a href="https://www.instagram.com/arhn.nitd/">
+            <i class="fa fa-instagram" style="font-size:20px"></i>
+            </a>
+          </p>
+          <p>
+            <a href="https://twitter.com/aarohan_nitdgp">
+            <i class="fa fa-twitter" style="font-size:20px"></i>
+            </a>
+          </p> -->
+      </li>
+    </ul>
+  </div>
+  <header>
+    <div class="logo">
+      <img src="{% static "img/Aarohan-2019-Header.png" %}" style="width: 150px;" alt="AAROHAN" srcset="">
+    </div>
+    <nav>
+      <ul>
+        <li><a href="../">
+            <p id="h2"><b>HOME</b></p>
+          </a></li>
+        <li><a href="{% url 'leaderboard' %}">
+            <p id="h1"><b>LEADER BOARD</b></p>
+          </a></li>
+        <li><a href="{% url 'contact' %}">
+            <p id="h1"><b>CONTACT US</b></p>
+          </a></li>
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'logout' %}">
+            <p id="h1"><b>LOGOUT</b></p>
+          </a></li>
+        {% else %}
+        <li><a href="{% url 'signin' %}">
+            <p id="h1"><b>SIGN IN</b></p>
+          </a></li>
+        <li><a href="{% url 'signup' %}">
+          <p id="h1"><b>SIGN UP</b></p>
+        </a></li>
+        {% endif %}
+      </ul>
+
+    </nav>
+    <div class="menu-toggle">
+      <i class="fa fa-bars"></i>
+    </div>
+  </header>
+
+
+  <form method="post">{% csrf_token %}
+      <a href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a><br>
+    <input id="input-1" type="text" placeholder="Name" required autofocus name="name" maxlength="255" required="" id="id_name" />
+    <label for="input-1">
+      <span class="label-text">Full Name</span>
+      <span class="nav-dot"></span>
+      <div class="signup-button-trigger">Sign Up</div>
+    </label>
+    <input id="input-2" type="text" placeholder="Username" required  name="username" maxlength="150" required="" id="id_username" />
+    <label for="input-2">
+      <span class="label-text">Username</span>
+      <span class="nav-dot"></span>
+    </label>
+    <input id="input-3" type="email" placeholder="Email" required name="email" maxlength="254" id="id_email" />
+    <label for="input-3">
+      <span class="label-text">Email</span>
+      <span class="nav-dot"></span>
+    </label>
+    <input id="input-4" type="text" placeholder="College" required name="college" maxlength="60" required="" id="id_college"/>
+    <label for="input-4">
+      <span class="label-text">College</span>
+      <span class="nav-dot"></span>
+    </label>
+    <input id="input-5" type="password" title="Min 7 letters, Use Capital,number,Special Char" pattern="(?=^.{7,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" placeholder="Min. 7 letters,Capital,Number, Special Char required" required name="password1" required="" id="id_password1"/>
+    <label for="input-5">
+      <span class="label-text">Password</span>
+      <span class="nav-dot"></span>
+    </label>
+    <input id="input-6" type="password" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" required  name="password2" required="" id="id_password2" />
+    <label for="input-6">
+      <span class="label-text">Confirm Password</span>
+      <span class="nav-dot"></span>
+    </label>
+    <button style="width: 40vw;min-width: 250px;" type="submit">Create Your Account</button>
+    <p class="tip">Press Tab</p>
+    <div class="signup-button">Sign Up</div>
+  </form>
+
+
+  <script type="text/javascript" src="{% static 'js/signup.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/navbar.js' %}"></script>
+  
+  <script>
+    {% if message %}
+    alert('{{ message }}');
+    {% endif %}
+  </script>
+
+</body>
+
+</html>
