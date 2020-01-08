@@ -15,6 +15,9 @@ from django.utils import timezone
 import datetime
 from django.utils.timezone import utc
 
+#predict profanity
+from profanity_check import predict, predict_prob
+
 # for email activation link
 # from django.contrib.sites.shortcuts import get_current_site
 # from django.utils.encoding import force_bytes
@@ -131,7 +134,7 @@ def contact(request):
     return render(request,'contact.html')
 
 def logoutred(request):
-    return render(request, 'registration/logged_out.html', {},)
+    return render(request, 'registration/login.html', {},)
 
 def signup(request):
     if request.method == 'POST':
@@ -139,19 +142,24 @@ def signup(request):
         if form.is_valid():
             user = form.save(commit=False)
             user.is_active = False
-            if request.user.is_anonymous:
-                user.save()
-                user.is_active = True
-                user.email_confirmed = True
-                user.last_updated = timezone.now()
-                user.save()
-                message="Registered ! Please Login"
+            print(predict([user.username]))
+            if(predict([user.username]) == 1):
+                message="No offensive language in username!!"
                 return render(request,'signup.html',{'message':message})
             else:
-                message="You are logged in already"
-                return render(request,'signup.html',{'message':message})
+                if request.user.is_anonymous:
+                    user.save()
+                    user.is_active = True
+                    user.email_confirmed = True
+                    user.last_updated = timezone.now()
+                    user.save()
+                    message="Registered !"
+                    return render(request,'registration/login.html',{'message':message})
+                else:
+                    message="You are logged in already"
+                    return render(request,'signup.html',{'message':message})
         else:
-            message="Weak Password. Password with minimum seven characters,an uppercase alphabet,a number, a special char is recommended"
+            message="Password didnot match"
             return render(request,'signup.html',{'message':message})
     else:
         form = SignUpForm()
