@@ -1,3 +1,4 @@
 .vscode
 inquest/__pycache__/
 inqapp/__pycache__/
+*.pyc 

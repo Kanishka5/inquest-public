@@ -17,6 +17,7 @@ from django.utils.timezone import utc
 
 #predict profanity
 from profanity_check import predict, predict_prob
+import re
 
 # for email activation link
 # from django.contrib.sites.shortcuts import get_current_site
@@ -31,7 +32,11 @@ from profanity_check import predict, predict_prob
 # from django.utils.http import urlsafe_base64_decode
 
 
-
+#remove digits
+def remove(word):
+    pattern = '[0-9!@#$%^&*(),.?":{}|<>_=;`~+-]'
+    word = [re.sub(pattern, '', word)]
+    return word
 
 
 
@@ -142,8 +147,10 @@ def signup(request):
         if form.is_valid():
             user = form.save(commit=False)
             user.is_active = False
-            print(predict([user.username]))
-            if(predict([user.username]) == 1):
+            uname = remove(user.username)
+            print(uname)
+            print(predict(uname))
+            if(predict(uname) == 1):
                 message="No offensive language in username!!"
                 return render(request,'signup.html',{'message':message})
             else:
