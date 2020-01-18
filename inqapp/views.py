@@ -148,8 +148,8 @@ def signup(request):
             user = form.save(commit=False)
             user.is_active = False
             uname = remove(user.username)
-            print(uname)
-            print(predict(uname))
+            # print(uname)
+            # print(predict(uname))
             if(predict(uname) == 1):
                 message="No offensive language in username!!"
                 return render(request,'signup.html',{'message':message})
